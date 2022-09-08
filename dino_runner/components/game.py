@@ -23,6 +23,8 @@ class Game:
         self.running = False
         self.score = 0
         self.death_count = 0
+        self.player_scores = []
+        self.player_high_score = 0
 
     def execute(self):
         self.running = True
@@ -36,6 +38,8 @@ class Game:
     def run(self):
         # Game loop: events - update - draw
         self.obstacle_manager.reset_obstacles()
+        self.score = 0
+        self.game_speed = 20
         self.playing = True
         while self.playing:
             self.events()
@@ -80,11 +84,8 @@ class Game:
         self.x_pos_bg -= self.game_speed
 
     def draw_score(self):
-        font = pygame.font.Font(FONT_STYLE, 30)
-        text = font.render(f"Score: {self.score}", True, (0, 0, 0))
-        text_rect = text.get_rect()
-        text_rect.center = (1000, 50)
-        self.screen.blit(text, text_rect)
+        self.blit_text(self.screen, f"Score: {self.score}", 1000, 70, text_size_font = 22)
+        self.blit_text(self.screen, f"Highscore: {self.player_high_score}", 1000, 40, text_size_font = 22)
 
 
     def handle_events_on_menu(self):
@@ -96,21 +97,26 @@ class Game:
                 self.run()
 
     def show_menu(self):
-        self.screen.fill((255, 255, 255))
+        self.screen.fill((180, 180, 180))
         half_screen_height = SCREEN_HEIGHT // 2
         half_screen_width = SCREEN_WIDTH // 2
 
         if self.death_count == 0:
-            font = pygame.font.Font(FONT_STYLE, 30)
-            text = font.render("Press any key to start", True, (0, 0, 0))
-            text_rect = text.get_rect()
-            text_rect.center = (half_screen_width, half_screen_height)
-            self.screen.blit(text, text_rect)
+            self.blit_text(self.screen, "Press any key to start", half_screen_width, half_screen_height)
         else:
-            pass
+            self.blit_text(self.screen, "Press any key to restart", half_screen_width, half_screen_height, text_size_font = 40)
+            self.blit_text(self.screen, f"Death count: {self.death_count}", half_screen_width, half_screen_height + 50)
+            self.blit_text(self.screen, f"Score: {self.score}", half_screen_width, half_screen_height + 100)
+            self.blit_text(self.screen, f"High Score: {self.player_high_score}", half_screen_width, 100)
         self.screen.blit(ICON, (half_screen_width - 30, half_screen_height - 140))
         pygame.display.flip()
         self.handle_events_on_menu()
     
+    def blit_text(self, screen, text, x_pos, y_pos, text_font = FONT_STYLE, text_size_font = 30, color_text = (0, 0, 0) ):
+        font = pygame.font.Font(text_font, text_size_font)
+        text = font.render(text, True, color_text)
+        text_rect = text.get_rect()
+        text_rect.center = (x_pos, y_pos)
+        screen.blit(text, text_rect)
 
 
