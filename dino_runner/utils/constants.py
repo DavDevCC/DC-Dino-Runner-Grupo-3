@@ -1,6 +1,8 @@
 import pygame
 import os
 
+pygame.init()
+pygame.mixer.init()
 # Global Constants
 TITLE = "Chrome Dino Runner"
 SCREEN_HEIGHT = 600
@@ -55,22 +57,40 @@ LARGE_CACTUS = [
     pygame.image.load(os.path.join(IMG_DIR, "Cactus/LargeCactus2.png")),
     pygame.image.load(os.path.join(IMG_DIR, "Cactus/LargeCactus3.png")),
 ]
-
+SMALL_CACTUS_CRUSHED = [
+    pygame.image.load(os.path.join(IMG_DIR, "Cactus/SmallCactus1Crushed.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Cactus/SmallCactus2Crushed.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Cactus/SmallCactus3Crushed.png")),
+]
+LARGE_CACTUS_CRUSHED = [
+    pygame.image.load(os.path.join(IMG_DIR, "Cactus/LargeCactus1Crushed.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Cactus/LargeCactus2Crushed.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Cactus/LargeCactus3Crushed.png")),
+]
 BIRD = [
     pygame.image.load(os.path.join(IMG_DIR, "Bird/Bird1.png")),
     pygame.image.load(os.path.join(IMG_DIR, "Bird/Bird2.png")),
 ]
-
+DEFAULT_CRUSH = [
+    pygame.image.load(os.path.join(IMG_DIR, "Bird/BirdCrushed.png")),
+]
 CLOUD = pygame.image.load(os.path.join(IMG_DIR, 'Other/Cloud.png'))
 SHIELD = pygame.image.load(os.path.join(IMG_DIR, 'Other/shield.png'))
 HAMMER = pygame.image.load(os.path.join(IMG_DIR, 'Other/hammer.png'))
 
 BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/Track.png'))
-
+STARS = pygame.image.load(os.path.join(IMG_DIR, 'Other/stars.png'))
+GAME_OVER = pygame.image.load(os.path.join(IMG_DIR, 'Other/GameOver.png'))
 
 HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
+COIN = pygame.image.load(os.path.join(IMG_DIR, 'Other/coin.png'))
 
+CRASH_SOUND = pygame.mixer.Sound((os.path.join(IMG_DIR, 'Other/tomb.wav')))
+DISAPEAR_SOUND = pygame.mixer.Sound((os.path.join(IMG_DIR, 'Other/Shiel_Action.wav')))
+THEME_SONG = pygame.mixer.Sound((os.path.join(IMG_DIR, 'Other/ThemeSong.wav')))
 FONT_STYLE = "freesansbold.ttf"
 
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = "shield"
+HAMMER_TYPE = "hammer"
+COIN_TYPE = "coin"

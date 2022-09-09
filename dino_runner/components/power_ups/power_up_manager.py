@@ -1,25 +1,29 @@
 import random
 import pygame
+from dino_runner.components.power_ups.coin import Coin
+from dino_runner.components.power_ups.hammer import Hammer
 
 
 from dino_runner.components.power_ups.shield import Shield
 from dino_runner.components.dinosaur import Dinosaur
-from pygame.sprite import Sprite
 
 
 
 
-class PowerUpManager(Sprite):
+class PowerUpManager:
     def __init__(self):
         self.power_ups = []
         self.when_appears = 0
+        
 
     def generate_power_up (self, score):
         if len ( self.power_ups ) == 0 and self.when_appears == score :
-            self.when_appears += random.randint(200, 300)
-            self.power_ups.append(Shield())
+            self.power_up_class = [ Coin(), Hammer(), Shield()]
+            self.when_appears += random.randint(200, 300) 
+            self.power_ups.append(random.choice(self.power_up_class))
 
-    def update(self, score, game_speed, player: Dinosaur) :
+    def update(self, score, game_speed, player: Dinosaur):
+                
         self.generate_power_up(score)
         for power_up in self.power_ups :
             power_up.update(game_speed ,self.power_ups)
@@ -36,7 +40,8 @@ class PowerUpManager(Sprite):
     
     def reset_power_ups(self):
         self.power_ups =  []
-        self.when_appears = random.randint(200, 300)
+        self.when_appears = random.randint(200, 300) 
+        
 
 
 
